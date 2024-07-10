@@ -33,12 +33,14 @@ import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.inegru.expensetrackr.ext.createImageFile
+import com.inegru.expensetrackr.ui.components.OutlinedDatePickerField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddExpenseScreen(navController: NavHostController) {
 
     var photoUri by remember { mutableStateOf<Uri?>(null) }
+    var date by remember { mutableStateOf("") }
 
     val file = LocalContext.current.createImageFile()
     val uri = FileProvider.getUriForFile(
@@ -89,6 +91,14 @@ fun AddExpenseScreen(navController: NavHostController) {
                         .padding(8.dp)
                 )
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedDatePickerField(
+                date = date,
+                onDateChange = { date = it },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
