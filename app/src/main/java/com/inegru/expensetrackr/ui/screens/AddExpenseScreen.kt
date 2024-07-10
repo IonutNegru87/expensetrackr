@@ -3,10 +3,12 @@ package com.inegru.expensetrackr.ui.screens
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -29,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.inegru.expensetrackr.ext.createImageFile
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,6 +79,16 @@ fun AddExpenseScreen(navController: NavHostController) {
                 Text("Take Photo")
             }
             Spacer(modifier = Modifier.height(16.dp))
+
+            photoUri?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(it),
+                    contentDescription = "Expense receipt",
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(8.dp)
+                )
+            }
         }
     }
 }
