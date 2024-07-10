@@ -1,5 +1,6 @@
 package com.inegru.expensetrackr.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -67,8 +68,7 @@ fun OutlinedDatePickerField(
     var showDialog by remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(DateUtils.parseDate(date)) }
 
-    OutlinedTextField(
-        value = date,
+    OutlinedTextField(value = date,
         onValueChange = onDateChange,
         label = { Text("Date") },
         trailingIcon = {
@@ -76,8 +76,11 @@ fun OutlinedDatePickerField(
                 Icon(Icons.Filled.DateRange, contentDescription = "Select date")
             }
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { showDialog = true },
         readOnly = true,
+        enabled = false
     )
 
     if (showDialog) {
