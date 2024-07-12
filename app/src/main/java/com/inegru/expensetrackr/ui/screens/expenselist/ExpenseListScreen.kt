@@ -1,5 +1,6 @@
 package com.inegru.expensetrackr.ui.screens.expenselist
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,17 +17,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.inegru.expensetrackr.model.Expense
+import org.koin.androidx.compose.koinViewModel
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExpenseListScreen(navController: NavHostController) {
-    val dummyExpenses = remember {
-        listOf("Lunch", "Office Supplies", "Transportation", "Coffee")
-    }
+fun ExpenseListScreen(
+    navController: NavHostController,
+    viewModel: ExpenseListViewModel = koinViewModel(),
+) {
+    val expenses by viewModel.expenses.collectAsState(initial = emptyList())
 
     Scaffold(
         topBar = {
@@ -47,19 +54,43 @@ fun ExpenseListScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            items(dummyExpenses) { expense ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                ) {
-                    Text(
-                        text = expense,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                }
+            items(expenses) { expense ->
+                ExpenseListItem(expense = expense)
             }
         }
     }
+}
+
+@Composable
+fun ExpenseListItem(expense: Expense) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(text = "ID: ${expense.id}")
+            Text(text = "Date: ${expense.date}")
+            Text(text = "Total: ${expense.total} ${expense.currency}")
+            Text(text = "Description: ${expense.description ?: "N/A"}")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ExpenseListItemPreview() {
+    val sampleExpense = Expense(
+        id = 1,
+        photoUri = "sample_uri",
+        date = LocalDate.now(),
+        total = 100.0,
+        currency = "USD",
+        description = "Sample expense description"
+    )
+
+    ExpenseListItem(expense = sampleExpense)
 }
