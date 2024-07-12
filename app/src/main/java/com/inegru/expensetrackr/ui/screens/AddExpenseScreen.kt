@@ -89,6 +89,27 @@ fun AddExpenseScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            // Photo/Expense
+            photoUri?.let {
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(photoUri)
+                        .size(coil.size.Size.ORIGINAL) // Set the target size to load the image at.
+                        .build()
+                )
+                if (painter.state is AsyncImagePainter.State.Loading) {
+                    CircularProgressIndicator()
+                } else {
+                    Image(
+                        painter = painter,
+                        contentScale = ContentScale.FillWidth,
+                        contentDescription = "Expense receipt",
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(8.dp)
+                    )
+                }
+            }
             Button(onClick = { launcher.launch(uri) }) {
                 Text("Take Photo")
             }
