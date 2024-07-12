@@ -1,9 +1,6 @@
 package com.inegru.expensetrackr.ui.screens
 
-import android.content.Context
 import android.net.Uri
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
@@ -40,13 +37,14 @@ import com.inegru.expensetrackr.ui.components.CurrencyPickerField
 import com.inegru.expensetrackr.ui.components.DatePickerField
 import com.inegru.expensetrackr.ui.components.ExpensePhoto
 import com.inegru.expensetrackr.ui.components.TotalTextField
-
-
-private const val TAG = "AddExpenseScreen"
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddExpenseScreen(navController: NavHostController) {
+fun AddExpenseScreen(
+    navController: NavHostController,
+    viewModel: AddExpenseViewModel = koinViewModel()
+) {
 
     var photoUri by remember { mutableStateOf<Uri?>(null) }
     var date by remember { mutableStateOf("") }
@@ -58,9 +56,9 @@ fun AddExpenseScreen(navController: NavHostController) {
     var currencyError by remember { mutableStateOf<String?>(null) }
 
     val context = LocalContext.current
-    val file = LocalContext.current.createImageFile()
+    val file = context.createImageFile()
     val uri = FileProvider.getUriForFile(
-        LocalContext.current, "${LocalContext.current.packageName}.fileprovider", file
+        context, "${context.packageName}.fileprovider", file
     )
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture(),
@@ -140,7 +138,7 @@ fun AddExpenseScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    saveExpense(context, photoUri!!, date, total, currency, description)
+                    viewModel.saveExpense()
                     navController.navigateUp()
                 },
                 enabled = isFormValid,
@@ -150,20 +148,4 @@ fun AddExpenseScreen(navController: NavHostController) {
             }
         }
     }
-}
-
-private fun saveExpense(
-    context: Context,
-    photoUri: Uri?,
-    date: String,
-    total: String,
-    currency: String,
-    description: String
-) {
-    // For now, just show a success message
-    Toast.makeText(context, "Expense saved successfully", Toast.LENGTH_SHORT).show()
-    Log.d(
-        TAG,
-        "saveExpense() called with: context = $context, photoUri = $photoUri, date = $date, total = $total, currency = $currency, description = $description"
-    )
 }
