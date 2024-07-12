@@ -1,6 +1,9 @@
 package com.inegru.expensetrackr.ui.screens
 
+import android.content.Context
 import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
@@ -38,6 +41,9 @@ import com.inegru.expensetrackr.ui.components.DatePickerField
 import com.inegru.expensetrackr.ui.components.ExpensePhoto
 import com.inegru.expensetrackr.ui.components.TotalTextField
 
+
+private const val TAG = "AddExpenseScreen"
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddExpenseScreen(navController: NavHostController) {
@@ -51,6 +57,7 @@ fun AddExpenseScreen(navController: NavHostController) {
     var totalError by remember { mutableStateOf<String?>(null) }
     var currencyError by remember { mutableStateOf<String?>(null) }
 
+    val context = LocalContext.current
     val file = LocalContext.current.createImageFile()
     val uri = FileProvider.getUriForFile(
         LocalContext.current, "${LocalContext.current.packageName}.fileprovider", file
@@ -62,6 +69,11 @@ fun AddExpenseScreen(navController: NavHostController) {
                     photoUri = uri
                 }
             })
+
+    val isFormValid = remember(photoUri, date, total, currency, totalError, currencyError) {
+        photoUri != null && date.isNotBlank() && total.isNotBlank() && currency.isNotBlank() &&
+                totalError == null && currencyError == null
+    }
 
     Scaffold(topBar = {
         TopAppBar(title = { Text("Add Expense") }, navigationIcon = {
@@ -123,6 +135,35 @@ fun AddExpenseScreen(navController: NavHostController) {
                 label = { Text("Description") },
                 modifier = Modifier.fillMaxWidth()
             )
+
+            // Save expense
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    saveExpense(context, photoUri!!, date, total, currency, description)
+                    navController.navigateUp()
+                },
+                enabled = isFormValid,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Save Expense")
+            }
         }
     }
+}
+
+private fun saveExpense(
+    context: Context,
+    photoUri: Uri?,
+    date: String,
+    total: String,
+    currency: String,
+    description: String
+) {
+    // For now, just show a success message
+    Toast.makeText(context, "Expense saved successfully", Toast.LENGTH_SHORT).show()
+    Log.d(
+        TAG,
+        "saveExpense() called with: context = $context, photoUri = $photoUri, date = $date, total = $total, currency = $currency, description = $description"
+    )
 }
