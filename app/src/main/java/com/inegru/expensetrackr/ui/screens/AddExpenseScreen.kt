@@ -3,7 +3,6 @@ package com.inegru.expensetrackr.ui.screens
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,17 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,19 +28,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.inegru.expensetrackr.ext.createImageFile
 import com.inegru.expensetrackr.ui.components.CurrencyPickerField
 import com.inegru.expensetrackr.ui.components.DatePickerField
+import com.inegru.expensetrackr.ui.components.ExpensePhoto
+import com.inegru.expensetrackr.ui.components.TotalTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,8 +63,6 @@ fun AddExpenseScreen(navController: NavHostController) {
                 }
             })
 
-    val focusManager = LocalFocusManager.current
-
     Scaffold(topBar = {
         TopAppBar(title = { Text("Add Expense") }, navigationIcon = {
             IconButton(onClick = { navController.navigateUp() }) {
@@ -90,26 +79,10 @@ fun AddExpenseScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Photo/Expense
-            photoUri?.let {
-                val painter = rememberAsyncImagePainter(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(photoUri)
-                        .size(coil.size.Size.ORIGINAL) // Set the target size to load the image at.
-                        .build()
-                )
-                if (painter.state is AsyncImagePainter.State.Loading) {
-                    CircularProgressIndicator()
-                } else {
-                    Image(
-                        painter = painter,
-                        contentScale = ContentScale.FillWidth,
-                        contentDescription = "Expense receipt",
-                        modifier = Modifier
-                            .fillMaxWidth(0.5f)
-                            .padding(8.dp)
-                    )
-                }
-            }
+            ExpensePhoto(
+                uri = photoUri,
+                modifier = Modifier.fillMaxWidth(0.5f)
+            )
             Button(onClick = { launcher.launch(uri) }) {
                 Text("Take Photo")
             }
@@ -124,23 +97,12 @@ fun AddExpenseScreen(navController: NavHostController) {
 
             // Total
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedTextField(
-                value = total,
-                onValueChange = {
-                    total = it
-                    totalError = validateTotal(it)
-                },
-                label = { Text("Total") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus(true) }),
-                isError = totalError != null,
-                supportingText = {
-                    totalError?.let {
-                        Text(text = it, color = MaterialTheme.colorScheme.error)
-                    }
-                },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
+            TotalTextField(
+                total = total,
+                onTotalChanged = { total = it },
+                error = totalError,
+                onValidationError = { totalError = it },
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Currency
@@ -162,14 +124,5 @@ fun AddExpenseScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
-    }
-}
-
-private fun validateTotal(total: String): String? {
-    return when {
-        total.isEmpty() -> "Total is required"
-        total.toDoubleOrNull() == null -> "Invalid number format"
-        total.toDouble() <= 0 -> "Total must be greater than zero"
-        else -> null
     }
 }
