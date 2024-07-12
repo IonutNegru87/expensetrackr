@@ -11,4 +11,5 @@ interface ExpenseRepository {
 
     suspend fun deleteExpense(expense: Expense)
 
+    suspend fun getExpenseById(expenseId: Int): Expense?
 }

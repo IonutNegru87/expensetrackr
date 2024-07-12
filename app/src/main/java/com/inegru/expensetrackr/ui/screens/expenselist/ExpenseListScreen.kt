@@ -1,5 +1,6 @@
 package com.inegru.expensetrackr.ui.screens.expenselist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,17 +56,23 @@ fun ExpenseListScreen(
                 .padding(innerPadding)
         ) {
             items(expenses) { expense ->
-                ExpenseListItem(expense = expense)
+                ExpenseListItem(expense = expense) {
+                    navController.navigate("expenseDetails/${it.id}")
+                }
             }
         }
     }
 }
 
 @Composable
-fun ExpenseListItem(expense: Expense) {
+fun ExpenseListItem(
+    expense: Expense,
+    onItemClick: (Expense) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onItemClick(expense) }
             .padding(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -92,5 +99,5 @@ fun ExpenseListItemPreview() {
         description = "Sample expense description"
     )
 
-    ExpenseListItem(expense = sampleExpense)
+    ExpenseListItem(expense = sampleExpense) {}
 }

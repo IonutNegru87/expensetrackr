@@ -21,4 +21,9 @@ class ExpenseRepositoryImpl(
     override suspend fun deleteExpense(expense: Expense) {
         expenseDao.deleteExpense(expense.asEntity())
     }
+
+    override suspend fun getExpenseById(expenseId: Int): Expense? {
+        return expenseDao.getExpenseById(expenseId)?.asExternalModel()
+    }
+
 }
