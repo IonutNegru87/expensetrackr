@@ -63,7 +63,7 @@ fun DatePickerDialog(
 }
 
 @Composable
-fun OutlinedDatePickerField(
+fun DatePickerField(
     date: String, onDateChange: (String) -> Unit, modifier: Modifier = Modifier
 ) {
     var showDialog by remember { mutableStateOf(false) }

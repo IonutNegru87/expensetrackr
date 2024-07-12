@@ -45,7 +45,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.inegru.expensetrackr.ext.createImageFile
 import com.inegru.expensetrackr.ui.components.CurrencyPickerField
-import com.inegru.expensetrackr.ui.components.OutlinedDatePickerField
+import com.inegru.expensetrackr.ui.components.DatePickerField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,7 +116,7 @@ fun AddExpenseScreen(navController: NavHostController) {
 
             // Date
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedDatePickerField(
+            DatePickerField(
                 date = date,
                 onDateChange = { date = it },
                 modifier = Modifier.fillMaxWidth()
