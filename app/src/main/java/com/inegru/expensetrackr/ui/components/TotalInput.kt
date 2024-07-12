@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TotalTextField(
@@ -33,5 +34,49 @@ fun TotalTextField(
         },
         singleLine = true,
         modifier = modifier,
+    )
+}
+
+@Preview
+@Composable
+fun TotalTextFieldPreview() {
+    TotalTextField(
+        total = "500.0",
+        onTotalChanged = {},
+        error = null,
+        modifier = Modifier
+    )
+}
+
+@Preview
+@Composable
+fun TotalTextFieldPreviewEmpty() {
+    TotalTextField(
+        total = "  ",
+        onTotalChanged = {},
+        error = "Total is required",
+        modifier = Modifier
+    )
+}
+
+@Preview
+@Composable
+fun TotalTextFieldPreviewZero() {
+    TotalTextField(
+        total = "0",
+        onTotalChanged = {},
+        error = "Total must be greater than zero",
+        modifier = Modifier
+    )
+}
+
+@Preview
+@Composable
+fun TotalTextFieldPreviewInvalid() {
+    TotalTextField(
+        total = "ABC78.0",
+        onTotalChanged = {},
+        error = "Invalid total amount",
+        modifier = Modifier
     )
 }
