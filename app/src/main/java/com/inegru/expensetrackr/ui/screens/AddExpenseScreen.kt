@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +55,7 @@ fun AddExpenseScreen(navController: NavHostController) {
     var date by remember { mutableStateOf("") }
     var total by remember { mutableStateOf("") }
     var currency by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
 
     var totalError by remember { mutableStateOf<String?>(null) }
     var currencyError by remember { mutableStateOf<String?>(null) }
@@ -87,8 +87,7 @@ fun AddExpenseScreen(navController: NavHostController) {
                 .padding(innerPadding)
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Photo/Expense
             photoUri?.let {
@@ -151,6 +150,15 @@ fun AddExpenseScreen(navController: NavHostController) {
                 onCurrencyChange = { currency = it },
                 error = currencyError,
                 onValidationError = { currencyError = it },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Description
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = description,
+                onValueChange = { description = it },
+                label = { Text("Description") },
                 modifier = Modifier.fillMaxWidth()
             )
         }
