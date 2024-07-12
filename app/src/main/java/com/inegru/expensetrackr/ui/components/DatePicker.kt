@@ -85,10 +85,11 @@ fun DatePickerField(
         modifier = modifier
             .fillMaxWidth()
             .clickable { showDialog = true },
-        isError = selectedDate == null,
+        supportingText = {
+            Text(text = "", color = MaterialTheme.colorScheme.error)
+        },
         readOnly = true,
         enabled = true,
-        supportingText = { Text(text = "", color = MaterialTheme.colorScheme.error) }
     )
 
     if (showDialog) {
