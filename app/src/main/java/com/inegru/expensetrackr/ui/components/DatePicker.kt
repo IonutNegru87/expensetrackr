@@ -29,7 +29,9 @@ import java.time.ZoneId
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerDialog(
-    selectedDate: LocalDate?, onDateSelected: (LocalDate) -> Unit, onDismiss: () -> Unit
+    selectedDate: LocalDate?,
+    onDateSelected: (LocalDate) -> Unit,
+    onDismiss: () -> Unit
 ) {
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = selectedDate?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
@@ -64,7 +66,9 @@ fun DatePickerDialog(
 
 @Composable
 fun DatePickerField(
-    date: String, onDateChange: (String) -> Unit, modifier: Modifier = Modifier
+    date: String,
+    onDateChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(DateUtils.parseDate(date)) }
@@ -81,6 +85,7 @@ fun DatePickerField(
         modifier = modifier
             .fillMaxWidth()
             .clickable { showDialog = true },
+        isError = selectedDate == null,
         readOnly = true,
         enabled = true,
         supportingText = { Text(text = "", color = MaterialTheme.colorScheme.error) }
