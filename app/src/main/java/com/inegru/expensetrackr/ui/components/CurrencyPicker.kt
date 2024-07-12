@@ -55,7 +55,6 @@ fun CurrencyPickerField(
                 }
             },
             label = { Text("Currency") },
-            isError = error != null,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { if (!isCustomInput) expanded = true },
@@ -71,6 +70,7 @@ fun CurrencyPickerField(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus(true) }),
+            isError = error != null,
             supportingText = {
                 error?.let {
                     Text(text = it, color = MaterialTheme.colorScheme.error)
