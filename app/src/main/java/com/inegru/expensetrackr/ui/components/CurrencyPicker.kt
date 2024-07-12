@@ -30,16 +30,11 @@ fun CurrencyPickerField(
     currency: String,
     onCurrencyChange: (String) -> Unit,
     error: String?,
-    onValidationError: (String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
     var isCustomInput by remember { mutableStateOf(currency.isEmpty()) }
     val predefinedCurrencies = listOf("USD", "EUR", "RON")
-
-    fun validateCurrency(input: String): Boolean {
-        return input in predefinedCurrencies || input.length == 3 && input.all { it.isLetter() }
-    }
 
     val focusManager = LocalFocusManager.current
 
@@ -48,11 +43,6 @@ fun CurrencyPickerField(
             value = currency,
             onValueChange = {
                 onCurrencyChange(it)
-                if (validateCurrency(it)) {
-                    onValidationError(null)
-                } else {
-                    onValidationError("Invalid currency code")
-                }
             },
             label = { Text("Currency") },
             modifier = Modifier
@@ -87,7 +77,6 @@ fun CurrencyPickerField(
                     text = { Text(currencyOption) },
                     onClick = {
                         onCurrencyChange(currencyOption)
-                        onValidationError(null)
                         expanded = false
                         isCustomInput = false
                     }

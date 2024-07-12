@@ -15,27 +15,13 @@ fun TotalTextField(
     total: String,
     onTotalChanged: (String) -> Unit,
     error: String?,
-    onValidationError: (String?) -> Unit,
     modifier: Modifier,
 ) {
-
-    fun validateTotal(total: String): String? {
-        return when {
-            total.isEmpty() -> "Total is required"
-            total.toDoubleOrNull() == null -> "Invalid number format"
-            total.toDouble() <= 0 -> "Total must be greater than zero"
-            else -> null
-        }
-    }
-
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
         value = total,
-        onValueChange = {
-            onTotalChanged(it)
-            onValidationError(validateTotal(it))
-        },
+        onValueChange = onTotalChanged,
         label = { Text("Total") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus(true) }),

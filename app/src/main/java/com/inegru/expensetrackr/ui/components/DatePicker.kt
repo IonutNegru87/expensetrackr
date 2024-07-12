@@ -93,9 +93,12 @@ fun DatePickerField(
     )
 
     if (showDialog) {
-        DatePickerDialog(selectedDate = selectedDate, onDateSelected = {
-            selectedDate = it
-            onDateChange(DateUtils.formatDate(it))
-        }, onDismiss = { showDialog = false })
+        DatePickerDialog(
+            selectedDate = selectedDate,
+            onDateSelected = {
+                selectedDate = it
+                onDateChange(DateUtils.formatDate(it))
+            },
+            onDismiss = { showDialog = false })
     }
 }

@@ -16,6 +16,7 @@ abstract class ExpenseDatabase : RoomDatabase() {
     abstract fun expenseDao(): ExpenseDao
 
     companion object {
+
         @Volatile
         private var INSTANCE: ExpenseDatabase? = null
 
@@ -25,7 +26,8 @@ abstract class ExpenseDatabase : RoomDatabase() {
                     context.applicationContext,
                     ExpenseDatabase::class.java,
                     "expense_database"
-                ).build()
+                )
+                    .build()
                 INSTANCE = instance
                 instance
             }
