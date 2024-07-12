@@ -1,4 +1,4 @@
-package com.inegru.expensetrackr.ext
+package com.inegru.expensetrackr.common.ext
 
 import android.content.Context
 import com.inegru.expensetrackr.common.utils.DateUtils

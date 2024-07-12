@@ -1,4 +1,4 @@
-package com.inegru.expensetrackr.ui.screens
+package com.inegru.expensetrackr.ui.screens.expenselist
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth

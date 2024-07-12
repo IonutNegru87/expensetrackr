@@ -1,13 +1,13 @@
-package com.inegru.expensetrackr.db
+package com.inegru.expensetrackr.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.inegru.expensetrackr.db.converter.DateConverter
-import com.inegru.expensetrackr.db.dao.ExpenseDao
-import com.inegru.expensetrackr.db.model.ExpenseEntity
+import com.inegru.expensetrackr.data.db.converter.DateConverter
+import com.inegru.expensetrackr.data.db.dao.ExpenseDao
+import com.inegru.expensetrackr.data.db.model.ExpenseEntity
 
 @Database(entities = [ExpenseEntity::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)

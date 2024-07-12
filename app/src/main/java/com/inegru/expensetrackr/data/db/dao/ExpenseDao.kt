@@ -1,11 +1,11 @@
-package com.inegru.expensetrackr.db.dao
+package com.inegru.expensetrackr.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.inegru.expensetrackr.db.model.ExpenseEntity
+import com.inegru.expensetrackr.data.db.model.ExpenseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,6 +1,6 @@
 package com.inegru.expensetrackr.ui.di
 
-import com.inegru.expensetrackr.ui.screens.AddExpenseViewModel
+import com.inegru.expensetrackr.ui.screens.addexpense.AddExpenseViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

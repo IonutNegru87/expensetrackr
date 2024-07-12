@@ -1,4 +1,4 @@
-package com.inegru.expensetrackr.db.converter
+package com.inegru.expensetrackr.data.db.converter
 
 import androidx.room.TypeConverter
 import com.inegru.expensetrackr.common.utils.DateUtils

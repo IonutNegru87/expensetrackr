@@ -1,6 +1,6 @@
-package com.inegru.expensetrackr.db.di
+package com.inegru.expensetrackr.data.db.di
 
-import com.inegru.expensetrackr.db.ExpenseDatabase
+import com.inegru.expensetrackr.data.db.ExpenseDatabase
 import org.koin.dsl.module
 
 val daosModule = module {

@@ -1,14 +1,14 @@
 package com.inegru.expensetrackr.data.repository
 
-import com.inegru.expensetrackr.db.model.ExpenseEntity
+import com.inegru.expensetrackr.model.Expense
 import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepository {
 
-    val allExpenses: Flow<List<ExpenseEntity>>
+    val allExpenses: Flow<List<Expense>>
 
-    suspend fun insertExpense(expenseEntity: ExpenseEntity)
+    suspend fun insertExpense(expense: Expense)
 
-    suspend fun deleteExpense(expenseEntity: ExpenseEntity)
+    suspend fun deleteExpense(expense: Expense)
 
 }

@@ -1,4 +1,4 @@
-package com.inegru.expensetrackr.ui.screens
+package com.inegru.expensetrackr.ui.screens.addexpense
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import com.inegru.expensetrackr.common.coroutines.DispatcherProvider
-import com.inegru.expensetrackr.ext.createImageFile
+import com.inegru.expensetrackr.common.ext.createImageFile
 import com.inegru.expensetrackr.ui.components.CurrencyPickerField
 import com.inegru.expensetrackr.ui.components.DatePickerField
 import com.inegru.expensetrackr.ui.components.ExpensePhoto

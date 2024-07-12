@@ -1,11 +1,10 @@
-package com.inegru.expensetrackr.ui.screens
+package com.inegru.expensetrackr.ui.screens.addexpense
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inegru.expensetrackr.common.coroutines.DispatcherProvider
 import com.inegru.expensetrackr.common.utils.DateUtils
-import com.inegru.expensetrackr.data.converter.asEntity
 import com.inegru.expensetrackr.data.repository.ExpenseRepository
 import com.inegru.expensetrackr.model.Expense
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -112,7 +111,7 @@ class AddExpenseViewModel(
 
         viewModelScope.launch(dispatcherProvider.io) {
             try {
-                expenseRepository.insertExpense(expense.asEntity())
+                expenseRepository.insertExpense(expense)
                 _uiEvent.emit(UiEvent.SaveSuccess)
             } catch (e: Exception) {
                 _uiEvent.emit(UiEvent.SaveError(e.message ?: "Unknown error occurred"))

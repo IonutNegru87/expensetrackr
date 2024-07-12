@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.inegru.expensetrackr.ui.screens.AddExpenseScreen
-import com.inegru.expensetrackr.ui.screens.ExpenseListScreen
+import com.inegru.expensetrackr.ui.screens.addexpense.AddExpenseScreen
+import com.inegru.expensetrackr.ui.screens.expenselist.ExpenseListScreen
 
 @Composable
 fun ExpenseTrackrApp() {
