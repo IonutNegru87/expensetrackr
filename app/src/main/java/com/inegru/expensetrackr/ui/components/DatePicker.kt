@@ -34,9 +34,11 @@ fun DatePickerDialog(
     onDateSelected: (LocalDate) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val initialDateMillis =
+        selectedDate?.atStartOfDay(ZoneId.of("UTC"))?.toInstant()?.toEpochMilli()
+
     val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = selectedDate?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
-            ?.toEpochMilli()
+        initialSelectedDateMillis = initialDateMillis ?: Instant.now().toEpochMilli()
     )
 
     val confirmEnabled = remember {
@@ -48,7 +50,7 @@ fun DatePickerDialog(
             onClick = {
                 datePickerState.selectedDateMillis?.let { millis ->
                     val selDate =
-                        Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
+                        Instant.ofEpochMilli(millis).atZone(ZoneId.of("UTC")).toLocalDate()
                     onDateSelected(selDate)
                 }
                 onDismiss()
