@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.inegru.expensetrackr.common.utils.DateUtils
 import java.time.Instant
 import java.time.LocalDate
@@ -64,6 +65,36 @@ fun DatePickerDialog(
     }
 }
 
+@Preview
+@Composable
+fun DatePickerDialogPreview() {
+    DatePickerDialog(
+        selectedDate = LocalDate.now(),
+        onDateSelected = {},
+        onDismiss = {}
+    )
+}
+
+@Preview
+@Composable
+fun DatePickerDialogPreviewInvalid() {
+    DatePickerDialog(
+        selectedDate = null,
+        onDateSelected = {},
+        onDismiss = {}
+    )
+}
+
+@Preview
+@Composable
+fun DatePickerDialogPreviewSpecific() {
+    DatePickerDialog(
+        selectedDate = LocalDate.of(2024, 7, 31),
+        onDateSelected = {},
+        onDismiss = {}
+    )
+}
+
 @Composable
 fun DatePickerField(
     date: String,
@@ -101,4 +132,35 @@ fun DatePickerField(
             },
             onDismiss = { showDialog = false })
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DatePickerFieldPreview() {
+    DatePickerField(
+        date = DateUtils.formatDate(LocalDate.now()),
+        onDateChange = {},
+        modifier = Modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DatePickerFieldPreviewEmpty() {
+    DatePickerField(
+        date = "",
+        onDateChange = {},
+        modifier = Modifier
+    )
+}
+
+//TODO: Will need to fix this
+@Preview(showBackground = true)
+@Composable
+fun DatePickerFieldPreviewInvalid() {
+    DatePickerField(
+        date = "baba",
+        onDateChange = {},
+        modifier = Modifier
+    )
 }
