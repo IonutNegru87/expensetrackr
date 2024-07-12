@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.PopupProperties
 
 @Composable
@@ -92,4 +93,26 @@ fun CurrencyPickerField(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CurrencyPickerFieldPreview() {
+    CurrencyPickerField(
+        currency = "EUR",
+        onCurrencyChange = {},
+        error = null,
+        modifier = Modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CurrencyPickerFieldPreviewError() {
+    CurrencyPickerField(
+        currency = "A",
+        onCurrencyChange = {},
+        error = "INVALID CURRENCY",
+        modifier = Modifier
+    )
 }
