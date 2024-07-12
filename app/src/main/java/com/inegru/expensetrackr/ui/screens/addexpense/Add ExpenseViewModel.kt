@@ -76,8 +76,8 @@ class AddExpenseViewModel(
     private fun validateTotal(total: String) {
         _totalError.value = when {
             total.isBlank() -> "Total is required"
-            total.toDouble() <= 0 -> "Total must be greater than zero"
             total.toDoubleOrNull() == null -> "Invalid total amount"
+            total.toDouble() <= 0 -> "Total must be greater than zero"
             else -> null
         }
     }
