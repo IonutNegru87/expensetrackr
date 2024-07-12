@@ -108,11 +108,22 @@ fun CurrencyPickerFieldPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun CurrencyPickerFieldPreviewError() {
+fun CurrencyPickerFieldPreviewInvalid() {
     CurrencyPickerField(
         currency = "A",
         onCurrencyChange = {},
-        error = "INVALID CURRENCY",
+        error = "Currency must be a 3-letter code",
+        modifier = Modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CurrencyPickerFieldPreviewEmpty() {
+    CurrencyPickerField(
+        currency = "",
+        onCurrencyChange = {},
+        error = "Currency is required",
         modifier = Modifier
     )
 }
