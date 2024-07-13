@@ -16,7 +16,6 @@ class ExpenseListViewModel(
     val expenses = _expenses
 
     init {
-        // Fetch expenses initially
         fetchExpenses()
     }
 
