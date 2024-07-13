@@ -2,13 +2,18 @@ package com.inegru.expensetrackr.ui.screens.expensedetails
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,11 +22,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
@@ -67,17 +79,53 @@ fun ExpenseDetailsScreen(
                         .size(Size.ORIGINAL)
                         .build()
                 )
-
-                Image(
-                    painter = painter,
-                    contentDescription = "Expense Image",
+                if (painter.state is AsyncImagePainter.State.Loading) {
+                    CircularProgressIndicator()
+                } else {
+                    Image(
+                        alignment = Alignment.TopCenter,
+                        painter = painter,
+                        contentDescription = "Expense Image",
+                        contentScale = ContentScale.FillWidth
+                    )
+                }
+                Spacer(modifier = Modifier.height(18.dp))
+                Card(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    contentScale = ContentScale.FillWidth
-                )
-                Text(text = "Expense details:")
-                Text(text = "Amount: ${expense.total}")
-                Text(text = "Description: ${expense.description}")
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Expense details:",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Amount:")
+                                }
+                                append(" ${expense.total}")
+                                append(" ${expense.currency}")
+                            }
+                        )
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Description:")
+                                }
+                                append(" ${expense.description}")
+                            }
+                        )
+                    }
+                }
+
             }
         }
     }
