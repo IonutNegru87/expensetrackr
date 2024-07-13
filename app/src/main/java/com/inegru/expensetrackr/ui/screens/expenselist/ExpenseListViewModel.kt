@@ -22,7 +22,8 @@ class ExpenseListViewModel(
     private fun fetchExpenses() {
         viewModelScope.launch(dispatcherProvider.io) {
             expenseRepository.allExpenses.collect { expenses ->
-                _expenses.value = expenses
+                _expenses.value =
+                    expenses.sortedWith(compareByDescending<Expense> { it.date }.thenByDescending { it.id })
             }
         }
     }
