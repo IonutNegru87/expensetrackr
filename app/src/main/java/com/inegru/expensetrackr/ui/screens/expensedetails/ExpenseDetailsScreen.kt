@@ -109,7 +109,15 @@ fun ExpenseDetailsScreen(
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Amount:")
+                                    append("Date:")
+                                }
+                                append(" ${expense.date}")
+                            }
+                        )
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Total:")
                                 }
                                 append(" ${expense.total}")
                                 append(" ${expense.currency}")
