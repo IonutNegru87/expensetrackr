@@ -7,6 +7,7 @@ import com.inegru.expensetrackr.data.repository.ExpenseRepository
 import com.inegru.expensetrackr.model.Expense
 import com.inegru.expensetrackr.util.MainDispatcherRule
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +40,8 @@ class ExpenseDetailsViewModelTest {
     fun setup() {
         repository = mockk()
         dispatcherProvider = mockk()
-        coEvery { dispatcherProvider.io } returns testDispatcher
+        every { dispatcherProvider.io } returns testDispatcher
+
         viewModel = ExpenseDetailsViewModel(repository, dispatcherProvider)
     }
 
