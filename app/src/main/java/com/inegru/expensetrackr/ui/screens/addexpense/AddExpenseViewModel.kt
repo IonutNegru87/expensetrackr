@@ -64,7 +64,7 @@ class AddExpenseViewModel(
     }
 
     fun updateCurrency(newCurrency: String) {
-        _currency.value = newCurrency
+        _currency.value = newCurrency.uppercase()
         validateCurrency(newCurrency)
         validateForm()
     }
@@ -103,7 +103,11 @@ class AddExpenseViewModel(
         val expense = Expense(
             id = 0,
             photoUri = _photoUri.value.toString(),
-            date = DateUtils.parseDate(_date.value) ?: LocalDate.now(),
+            date = if (_date.value.isBlank()) {
+                LocalDate.now()
+            } else {
+                DateUtils.parseDate(_date.value) ?: LocalDate.now()
+            },
             total = _total.value.toDoubleOrNull() ?: 0.0,
             currency = _currency.value,
             description = _description.value
