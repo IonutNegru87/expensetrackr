@@ -18,6 +18,8 @@ ksp = "2.0.0-1.0.21"
 koin = "3.4.3"
 mockk = "1.13.5"
 turbine = "1.1.0"
+coreKtxVersion = "1.6.1"
+robolectric = "4.11.1"
 
 
 [libraries]
@@ -68,6 +70,8 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
