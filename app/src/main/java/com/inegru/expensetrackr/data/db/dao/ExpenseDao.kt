@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.inegru.expensetrackr.data.db.model.ExpenseEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -21,4 +22,7 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM expenses WHERE id = :expenseId")
     suspend fun getExpenseById(expenseId: Int): ExpenseEntity?
+
+    @Update
+    suspend fun updateExpense(expense: ExpenseEntity)
 }

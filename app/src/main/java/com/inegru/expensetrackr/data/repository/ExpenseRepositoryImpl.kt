@@ -26,4 +26,7 @@ class ExpenseRepositoryImpl(
         return expenseDao.getExpenseById(expenseId)?.asExternalModel()
     }
 
+    override suspend fun updateExpense(expense: Expense) {
+        expenseDao.updateExpense(expense.asEntity())
+    }
 }
