@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.inegru.expensetrackr.common.utils.DateUtils
 import java.time.Instant
@@ -62,7 +63,7 @@ fun DatePickerDialog(
         TextButton(onClick = onDismiss) {
             Text("Cancel")
         }
-    }) {
+    }, modifier = Modifier.testTag("DatePickerDialog")) {
         DatePicker(state = datePickerState)
     }
 }
