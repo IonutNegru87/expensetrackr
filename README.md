@@ -13,3 +13,8 @@ Nice to have:
 • Structured
 • Maintainable
 • Testable
+
+
+**Application preview:**
+| ![Screenshot_20240716_101055](https://github.com/user-attachments/assets/a2b0957c-b6db-43bf-b6aa-b0ee5a1f4a7f) | ![Screenshot_20240716_100859](https://github.com/user-attachments/assets/ae10f0eb-b63b-4f8c-96c0-ab83b4987ca0) | ![Screenshot_20240716_100946](https://github.com/user-attachments/assets/d0d50ef9-b63f-48a4-927d-bb98554f643c) | ![Screenshot_20240716_101103](https://github.com/user-attachments/assets/482e5edf-6ebe-4cbe-ae49-f8c05b747eb4) |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
