@@ -118,7 +118,7 @@ class AddExpenseViewModel(
                 expenseRepository.insertExpense(expense)
                 _uiEvent.emit(UiEvent.SaveSuccess)
             } catch (e: Exception) {
-                _uiEvent.emit(UiEvent.SaveError(e.message ?: "Unknown error occurred"))
+                _uiEvent.emit(UiEvent.SaveError(message = e.message ?: "Unknown error occurred"))
             }
         }
     }

@@ -43,21 +43,24 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ExpenseDetailsScreen(
     expenseId: Int,
-    viewModel: ExpenseDetailsViewModel = koinViewModel(),
-    navController: NavController
+    navController: NavController,
+    viewModel: ExpenseDetailsViewModel = koinViewModel()
 ) {
     viewModel.getExpenseById(expenseId)
     val expenseState = viewModel.expense.collectAsState()
     val expense = expenseState.value
-
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Expense Details") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    IconButton(
+                        onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
                 }
             )
@@ -93,7 +96,8 @@ fun ExpenseDetailsScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    elevation = CardDefaults
+                        .cardElevation(defaultElevation = 2.dp)
                 ) {
                     Column(
                         modifier = Modifier
@@ -107,7 +111,7 @@ fun ExpenseDetailsScreen(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            buildAnnotatedString {
+                            text = buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                                     append("Date:")
                                 }
@@ -115,7 +119,7 @@ fun ExpenseDetailsScreen(
                             }
                         )
                         Text(
-                            buildAnnotatedString {
+                            text = buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                                     append("Total:")
                                 }
@@ -124,7 +128,7 @@ fun ExpenseDetailsScreen(
                             }
                         )
                         Text(
-                            buildAnnotatedString {
+                            text = buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                                     append("Description:")
                                 }

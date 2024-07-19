@@ -57,8 +57,10 @@ fun AddExpenseScreen(
     val total by viewModel.total.collectAsState()
     val currency by viewModel.currency.collectAsState()
     val description by viewModel.description.collectAsState()
+
     val totalError by viewModel.totalError.collectAsState()
     val currencyError by viewModel.currencyError.collectAsState()
+
     val isFormValid by viewModel.isFormValid.collectAsState()
 
     val context = LocalContext.current
@@ -67,7 +69,8 @@ fun AddExpenseScreen(
         context, "${context.packageName}.fileprovider", file
     )
     val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture(),
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.TakePicture(),
             onResult = { success ->
                 if (success) {
                     viewModel.updatePhotoUri(uri)
@@ -96,11 +99,16 @@ fun AddExpenseScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Add Expense") }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                }
-            })
+            TopAppBar(
+                title = { Text("Add Expense") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                })
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
@@ -118,7 +126,7 @@ fun AddExpenseScreen(
                 modifier = Modifier.fillMaxWidth(0.5f)
             )
             Button(onClick = { launcher.launch(uri) }) {
-                Text("Take Photo")
+                Text(text = "Take Photo")
             }
 
             // Date
@@ -152,7 +160,7 @@ fun AddExpenseScreen(
             OutlinedTextField(
                 value = description,
                 onValueChange = viewModel::updateDescription,
-                label = { Text("Description") },
+                label = { Text(text = "Description") },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -163,7 +171,7 @@ fun AddExpenseScreen(
                 enabled = isFormValid,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Save Expense")
+                Text(text = "Save Expense")
             }
         }
     }

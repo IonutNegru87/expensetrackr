@@ -38,8 +38,13 @@ class ExpenseListViewModel(
     }
 
     fun deleteExpense(expense: Expense) {
-        viewModelScope.launch {
-            expenseRepository.deleteExpense(expense)
+        try {
+            viewModelScope.launch(dispatcherProvider.io) {
+                expenseRepository.deleteExpense(expense)
+            }
+            _errorState.value = null
+        } catch (e: Exception) {
+            _errorState.value = e.message ?: "An unknown error occurred"
         }
     }
 

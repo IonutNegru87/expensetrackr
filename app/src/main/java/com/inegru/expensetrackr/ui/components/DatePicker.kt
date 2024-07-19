@@ -57,11 +57,11 @@ fun DatePickerDialog(
                 onDismiss()
             }, enabled = confirmEnabled.value
         ) {
-            Text("OK")
+            Text(text = "OK")
         }
     }, dismissButton = {
         TextButton(onClick = onDismiss) {
-            Text("Cancel")
+            Text(text = "Cancel")
         }
     }, modifier = Modifier.testTag("DatePickerDialog")) {
         DatePicker(state = datePickerState)
@@ -110,7 +110,7 @@ fun DatePickerField(
     OutlinedTextField(
         value = date,
         onValueChange = onDateChange,
-        label = { Text("Date") },
+        label = { Text(text = "Date") },
         trailingIcon = {
             IconButton(onClick = { showDialog = true }) {
                 Icon(Icons.Filled.DateRange, contentDescription = "Select date")
@@ -157,7 +157,6 @@ fun DatePickerFieldPreviewEmpty() {
     )
 }
 
-//TODO: Will need to fix this
 @Preview(showBackground = true)
 @Composable
 fun DatePickerFieldPreviewInvalid() {

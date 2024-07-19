@@ -7,7 +7,22 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { AddExpenseViewModel(get(), get()) }
-    viewModel { ExpenseListViewModel(get(), get()) }
-    viewModel { ExpenseDetailsViewModel(get(), get()) }
+    viewModel {
+        AddExpenseViewModel(
+            expenseRepository = get(),
+            dispatcherProvider = get()
+        )
+    }
+    viewModel {
+        ExpenseListViewModel(
+            expenseRepository = get(),
+            dispatcherProvider = get()
+        )
+    }
+    viewModel {
+        ExpenseDetailsViewModel(
+            repository = get(),
+            dispatcherProvider = get()
+        )
+    }
 }

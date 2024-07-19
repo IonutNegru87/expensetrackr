@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.inegru.expensetrackr.common.coroutines.DispatcherProvider
 import com.inegru.expensetrackr.data.repository.ExpenseRepository
 import com.inegru.expensetrackr.model.Expense
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,16 +23,11 @@ class ExpenseDetailsViewModel(
     fun getExpenseById(expenseId: Int) {
         viewModelScope.launch(dispatcherProvider.io) {
             try {
-                _expense.value = repository.getExpenseById(expenseId)
+                _expense.value = repository.getExpenseById(expenseId = expenseId)
                 _errorState.value = null
             } catch (e: Exception) {
                 _errorState.value = e.message ?: "An unknown error occurred"
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelScope.cancel()
     }
 }

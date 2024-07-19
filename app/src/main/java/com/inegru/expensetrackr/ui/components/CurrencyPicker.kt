@@ -53,8 +53,14 @@ fun CurrencyPickerField(
                 .testTag("CurrencyTextField"),
             readOnly = !isCustomInput,
             trailingIcon = {
-                IconButton(onClick = { expanded = true }, Modifier.testTag("TrailingIcon")) {
-                    Icon(Icons.Default.ArrowDropDown, contentDescription = "Select currency")
+                IconButton(
+                    onClick = { expanded = true },
+                    modifier = Modifier.testTag("TrailingIcon")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Select currency"
+                    )
                 }
             },
             singleLine = true,
@@ -77,7 +83,7 @@ fun CurrencyPickerField(
         ) {
             predefinedCurrencies.forEach { currencyOption ->
                 DropdownMenuItem(
-                    text = { Text(currencyOption) },
+                    text = { Text(text = currencyOption) },
                     onClick = {
                         onCurrencyChange(currencyOption)
                         expanded = false
@@ -86,7 +92,7 @@ fun CurrencyPickerField(
                 )
             }
             DropdownMenuItem(
-                text = { Text("Custom") },
+                text = { Text(text = "Custom") },
                 onClick = {
                     isCustomInput = true
                     expanded = false

@@ -23,7 +23,7 @@ fun TotalTextField(
     OutlinedTextField(
         value = total,
         onValueChange = onTotalChanged,
-        label = { Text("Total") },
+        label = { Text(text = "Total") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus(true) }),
         isError = error != null,

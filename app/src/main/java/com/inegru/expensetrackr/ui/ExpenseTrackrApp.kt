@@ -14,7 +14,10 @@ import com.inegru.expensetrackr.ui.screens.expenselist.ExpenseListScreen
 fun ExpenseTrackrApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "expenseList") {
+    NavHost(
+        navController = navController,
+        startDestination = "expenseList"
+    ) {
         composable("expenseList") {
             ExpenseListScreen(navController)
         }

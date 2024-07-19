@@ -67,7 +67,10 @@ fun ExpenseListScreen(
             FloatingActionButton(
                 onClick = { navController.navigate("addExpense") }
             ) {
-                Icon(Icons.Filled.Add, contentDescription = "Add Expense")
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "Add Expense"
+                )
             }
         }
     ) { innerPadding ->
@@ -138,7 +141,7 @@ fun ExpenseListScreen(
                                 },
                                 modifier = Modifier.align(Alignment.End)
                             ) {
-                                Text("Delete")
+                                Text(text = "Delete")
                             }
                         }
                     }
